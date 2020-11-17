@@ -2,9 +2,12 @@ import React, {useEffect, useState} from "react";
 import './App.css';
 import api from "./services/conexApi";
 import exclude from "./assets/close.svg"
+import { getSuggestedQuery } from "@testing-library/react";
 
 const App = () => {
   const [tools, setTools] = useState([]);
+  const [tag, setTag] = useState("");
+  const [check, setCheck] = useState(false);
 
   interface Tools{
     id: number,
@@ -15,8 +18,13 @@ const App = () => {
   }
 
     async function getTools(){
-      const response = await api.get("/tools");
+      if(tag == "" || check == false){
+        const response = await api.get("/tools");
+        setTools(response.data)
+      }else{
+      const response = await api.get(`/tools?tag=${tag}`);
       setTools(response.data);
+      }
     }
 
     async function deleteTool(id: number){
@@ -35,6 +43,14 @@ const App = () => {
           <h2>Very Useful Tools to Remember</h2>
         </header>
 
+        <div>
+          <form>
+            <input type="text" placeholder="Search" onChange={(i) => setTag(i.target.value)}/>
+              <input type="checkbox" placeholder="true" onChange={() => setCheck(!check)}/>
+              <label>Search in tags only</label>
+          </form>
+        </div>
+
         <div className="tools-list">
           {tools.map((tool: Tools) => (
             <div key={tool.id} className="Tool-item">
@@ -42,7 +58,7 @@ const App = () => {
                 <a href={tool.link} className= "link">{tool.title}</a>
 
                 <button className = "Button-Delete" onClick={() => {deleteTool(tool.id)}}>
-                <img className = "Img-Delete" src={exclude}/><b>  Remove</b></button>
+                <img className = "Img-Delete" src={exclude} alt="Icone de remover tool"/><b> Remove</b></button>
               </header>
 
               <p>{tool.description}</p>
@@ -53,7 +69,6 @@ const App = () => {
               </div>
           ))}
         </div>
-
       </div>
     )
 }
