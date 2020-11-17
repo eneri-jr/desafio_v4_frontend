@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import api from "./services/conexApi";
-import exclude from "./assets/close.svg"
-import { getSuggestedQuery } from "@testing-library/react";
+import exclude from "./assets/close.svg";
+import Del from "./components/del/index";
+import Add from "./components/add";
 
 const App = () => {
   const [tools, setTools] = useState([]);
   const [tag, setTag] = useState("");
   const [check, setCheck] = useState(false);
+  const [remove, setRemove] = useState(false);
+  const [idTool, setIdTool] = useState(0);
+  const [add, setAdd] = useState(false);
 
   interface Tools{
     id: number,
@@ -29,6 +33,7 @@ const App = () => {
 
     async function deleteTool(id: number){
       await api.delete("/tools/" + id);
+      setRemove(false)
     }
 
     useEffect(() => {
@@ -49,6 +54,9 @@ const App = () => {
               <input type="checkbox" placeholder="true" onChange={() => setCheck(!check)}/>
               <label>Search in tags only</label>
           </form>
+          <button className="Add-Tool" onClick={() => setAdd(true)}>+ Add</button>
+
+          
         </div>
 
         <div className="tools-list">
@@ -57,7 +65,7 @@ const App = () => {
               <header>
                 <a href={tool.link} className= "link">{tool.title}</a>
 
-                <button className = "Button-Delete" onClick={() => {deleteTool(tool.id)}}>
+                <button className = "Button-Delete" onClick={() => {setRemove(true); setIdTool(tool.id)}}>
                 <img className = "Img-Delete" src={exclude} alt="Icone de remover tool"/><b> Remove</b></button>
               </header>
 
@@ -69,6 +77,19 @@ const App = () => {
               </div>
           ))}
         </div>
+        {
+          add ?
+          <Add
+          close={() => {setAdd(false); getTools()}}/> : null
+        }
+        
+        {
+          remove ?
+          <Del
+            del={() => deleteTool(idTool)}
+            close={() => setRemove(false)}
+            /> : null
+        }
       </div>
     )
 }
