@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import api from "./services/conexApi";
+import exclude from "./assets/close.svg"
 
 const App = () => {
   const [tools, setTools] = useState([]);
-
-  console.log("aqui")
 
   interface Tools{
     id: number,
@@ -16,9 +15,12 @@ const App = () => {
   }
 
     async function getTools(){
-      console.log("passou")
-      const response = await api.get("//localhost:3000/tools/");
+      const response = await api.get("/tools");
       setTools(response.data);
+    }
+
+    async function deleteTool(id: number){
+      await api.delete("/tools/" + id);
     }
 
     useEffect(() => {
@@ -38,6 +40,9 @@ const App = () => {
             <div key={tool.id} className="Tool-item">
               <header>
                 <a href={tool.link} className= "link">{tool.title}</a>
+
+                <button className = "Button-Delete" onClick={() => {deleteTool(tool.id)}}>
+                <img className = "Img-Delete" src={exclude}/><b>  Remove</b></button>
               </header>
 
               <p>{tool.description}</p>

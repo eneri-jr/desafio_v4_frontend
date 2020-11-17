@@ -24,3 +24,14 @@
   color: #F93822;
   font-weight: bolder;
 }
+
+.Img-Delete{
+  width: 15px;
+}
+
+.Button-Delete{
+  background-color: #E1E0E0;
+  border: none;
+  position: relative;
+  left:480px;
+}
