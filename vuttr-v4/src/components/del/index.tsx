@@ -7,6 +7,7 @@ interface DelProps {
     close(): any
 }
 
+//Criada uma função quando abre a popUp de deletar tool:
 const Del: React.FC<DelProps> = ({del, close }) => {
     return (
         <div>

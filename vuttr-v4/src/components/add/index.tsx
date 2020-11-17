@@ -6,6 +6,7 @@ interface AddProps {
   close(): any,
 }
 
+//Criada uma função quando abre a popUp de adicionar tools:
 const Add: React.FC<AddProps> = ({ close = () => {} }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -14,6 +15,7 @@ const Add: React.FC<AddProps> = ({ close = () => {} }) => {
 
   async function AddTool(i: FormEvent) {
     i.preventDefault()
+    //usa o split para construir a lista de tools por espaço:
     const listTags = tags.split(' ')
 
     await Api.post('/tools', {
@@ -25,6 +27,7 @@ const Add: React.FC<AddProps> = ({ close = () => {} }) => {
     close()
   }
 
+  //retorna o html dentro do javascript com os campos a serem preenchidos:
   return (
     <div className="Main">
       <div className="popup">

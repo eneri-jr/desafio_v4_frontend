@@ -6,6 +6,7 @@ import Del from "./components/del/index";
 import Add from "./components/add";
 
 const App = () => {
+  //Setar os states de todos os eventos que irão ocorrer na página:
   const [tools, setTools] = useState([]);
   const [tag, setTag] = useState("");
   const [check, setCheck] = useState(false);
@@ -13,6 +14,7 @@ const App = () => {
   const [idTool, setIdTool] = useState(0);
   const [add, setAdd] = useState(false);
 
+  //Criar uma interface para poder ter os dados das tools no momento do get:
   interface Tools{
     id: number,
     title: string,
@@ -21,6 +23,7 @@ const App = () => {
     tags: Array<string>
   }
 
+    //Listar as tools cadastradas no banco ou então procurar através da query:
     async function getTools(){
       if(tag == "" || check == false){
         const response = await api.get("/tools");
@@ -31,15 +34,18 @@ const App = () => {
       }
     }
 
+    //Chamada para deletar uma tool:
     async function deleteTool(id: number){
       await api.delete("/tools/" + id);
       setRemove(false)
     }
 
+    //Vai estar sempre recarregando as tools para a página principaL:
     useEffect(() => {
       getTools()
     })
 
+    //Retorna o html mostrado para o usuário:
     return(
       <div className="App">
         
@@ -77,6 +83,7 @@ const App = () => {
               </div>
           ))}
         </div>
+        {/* Criado para controlar o add e delete tool: */}
         {
           add ?
           <Add
