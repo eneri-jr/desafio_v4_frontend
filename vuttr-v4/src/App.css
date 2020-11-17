@@ -7,20 +7,41 @@
 
 .App-header {
   background-color: #E1E0E0;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: #F93822;
-}
+  font-size: 30px;
+  color: #353333;
+  }
 
 .Tool-item {
   border: 2px solid black;
   margin: 5px;
   padding: 10px;
+  color: #353333;
 }
 
 .link{
-  color: #F93822;
+  color:#F93822; 
   font-weight: bolder;
+}
+
+.Img-Delete{
+  width: 15px;
+}
+
+.Button-Delete{
+  background-color: #E1E0E0;
+  color:#353333;
+  border:0px;
+  font-size: 16px;
+  margin-top: 0px;
+  margin-left: 450px;
+}
+
+.Add-Tool{
+  background-color: #00b140;
+  color: #353333;
+  font-weight: bolder;
+  padding: 4px 22px;
+  position: absolute;
+  top: 255px;
+  left: 920px;
 }
