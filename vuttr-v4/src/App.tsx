@@ -25,7 +25,7 @@ const App = () => {
 
     //Listar as tools cadastradas no banco ou então procurar através da query:
     async function getTools(){
-      if(tag == "" || check == false){
+      if(tag === "" || check === false){
         const response = await api.get("/tools");
         setTools(response.data)
       }else{
