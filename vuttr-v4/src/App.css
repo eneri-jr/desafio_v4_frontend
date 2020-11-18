@@ -28,12 +28,11 @@
 }
 
 .Button-Delete{
-  background-color: #E1E0E0;
+  background: none;
   color:#353333;
-  border:0px;
   font-size: 16px;
-  margin-top: 0px;
-  margin-left: 450px;
+  border: none;
+  float: right;
 }
 
 .Add-Tool{
